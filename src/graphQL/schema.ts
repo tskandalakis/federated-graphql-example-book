@@ -40,7 +40,7 @@ export const typeDefs = gql`
   }
 
   extend type User @key(fields: "id") {
-    id: ID @external
+    id: ID! @external
   }
 
   input CreateBookInput {
