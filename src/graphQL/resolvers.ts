@@ -2,27 +2,27 @@ import { GraphQLResolverMap } from 'apollo-graphql';
 
 export const resolvers: GraphQLResolverMap<any> = {
   Query: {
-    getUsers: async (_source, _args, ctx)=> {
-      return ctx.dataSources.userAPI.getUsers(_args.paginationInput);
+    getBooks: async (_source, _args, ctx)=> {
+      return ctx.dataSources.bookAPI.getBooks(_args.paginationInput);
     },
-    getUser: async (_source, _args, ctx)=> {
-      return ctx.dataSources.userDB.getUserById(_args.userId);
+    getBook: async (_source, _args, ctx)=> {
+      return ctx.dataSources.bookDB.getBookById(_args.bookId);
     },
   },
   // Mutation: {
-  //   createUser: async (_source, _args, { dataSources }) => {
-  //     return dataSources.userDB.createUser(_args.userForm);
+  //   createBook: async (_source, _args, { dataSources }) => {
+  //     return dataSources.bookDB.createBook(_args.bookForm);
   //   },
-  //   updateUser: async (_source, _args, { dataSources }) => {
-  //     return dataSources.userDB.updateUser(_args.userForm);
+  //   updateBook: async (_source, _args, { dataSources }) => {
+  //     return dataSources.bookDB.updateBook(_args.bookForm);
   //   },
-  //   deleteUser: async (_source, _args, { dataSources }) => {
-  //     return dataSources.userDB.deleteUser(_args.userId);
+  //   deleteBook: async (_source, _args, { dataSources }) => {
+  //     return dataSources.bookDB.deleteBook(_args.bookId);
   //   },
   // },
-  User: {
+  Book: {
     __resolveReference: async (obj, ctx) => {
-      return ctx.dataSources.userDB.loadUser(obj.id);
+      return ctx.dataSources.bookDB.loadBook(obj.id);
     }
   },
 };

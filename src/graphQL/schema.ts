@@ -4,53 +4,54 @@ export const typeDefs = gql`
   scalar Date
 
   type Query {
-    getUsers(
+    getBooks(
       paginationInput: PaginationInput
-    ): UsersResponse
-    getUser(
-      userId: ID!
-    ): User
+    ): BooksResponse
+    getBook(
+      bookId: ID!
+    ): Book
   }
 
   type Mutation {
-    createUser(
+    createBook(
       token: ID!
-      userForm: CreateUserInput!
-    ): User
-    updateUser(
-      userId: ID!
-      userForm: UpdateUserInput!
-    ): User
-    deleteUser(
-      userId: ID!
+      bookForm: CreateBookInput!
+    ): Book
+    updateBook(
+      bookId: ID!
+      bookForm: UpdateBookInput!
+    ): Book
+    deleteBook(
+      bookId: ID!
     ): Boolean
   }
 
-  type User @key(fields: "id") {
+  type Book @key(fields: "id") {
     id: ID!
     name: String
-    email: String
+    description: String
     created: Date
     updated: Date
   }
 
-  type UsersResponse {
-    data: [User]
+  type BooksResponse {
+    data: [Book]
     paginationData: Pagination
   }
 
-#  extend type Book @key(fields: "id") {
-#    id: ID @external
-#  }
-
-  input CreateUserInput {
-    name: String!
-    email: String!
+  extend type User @key(fields: "id") {
+    id: ID @external
   }
 
-  input UpdateUserInput {
+  input CreateBookInput {
     name: String!
-    email: String!
+    description: String!
+  }
+
+  input UpdateBookInput {
+    id: ID!
+    name: String!
+    description: String!
   }
 
   type Pagination {

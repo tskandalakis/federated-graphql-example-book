@@ -1,14 +1,14 @@
 import { resolvers } from '../../../../src/graphQL/resolvers';
 
-describe('User', () => {
+describe('Book', () => {
   test('__resolveReference', async () => {
     // @ts-ignore
-    const res = await resolvers.User.__resolveReference({
+    const res = await resolvers.Book.__resolveReference({
       id: 1
     }, {
       dataSources: {
-        userDB: {
-          loadUser: (id: number) => {
+        bookDB: {
+          loadBook: (id: number) => {
             return {
               id,
               name: 'test'

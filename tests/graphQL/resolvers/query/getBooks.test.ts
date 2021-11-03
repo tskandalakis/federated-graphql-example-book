@@ -1,14 +1,14 @@
 import { resolvers } from '../../../../src/graphQL/resolvers';
 
-describe('Query getUsers', () => {
+describe('Query getBooks', () => {
   test('Calls proper dataSource', async () => {
     // @ts-ignore
-    const res = await resolvers.Query.getUsers({}, {
+    const res = await resolvers.Query.getBooks({}, {
       paginationInput: null
     }, {
       dataSources: {
-        userAPI: {
-          getUsers: (idArr: string[]) => {
+        bookAPI: {
+          getBooks: (idArr: string[]) => {
             return true;
           }
         }

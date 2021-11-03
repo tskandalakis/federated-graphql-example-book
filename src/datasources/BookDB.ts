@@ -2,18 +2,18 @@ import { DataSource } from 'apollo-datasource';
 import DataLoader from 'dataloader';
 import {ApolloError} from 'apollo-server-express'
 
-interface User {
+interface Book {
   id: number
   name: string
-  email: string
+  description: string
   created: Date
   updated: Date
 }
 
-export class UserDB extends DataSource {
+export class BookDB extends DataSource {
   context: any;
   dataLoader: any;
-  fakeUserData: User[];
+  fakeBookData: Book[];
 
   constructor() {
     // Can pass db connection in as arg and set as this.db;
@@ -25,45 +25,45 @@ export class UserDB extends DataSource {
     this.context = config.context;
     this.dataLoader = {
       user: new DataLoader(async (idArr: number[]) => {
-        const response = await this.getUsers(idArr);
+        const response = await this.getBooks(idArr);
 
         return idArr.map((id: number) =>
-          response.find((user: any) => user.id === id)
+          response.find((book: any) => book.id === id)
         );
       })
     };
-    this.fakeUserData = [{
+    this.fakeBookData = [{
       'id': 1,
-      'name': 'John Doe',
-      'email': 'john.doe@test.com',
+      'name': '',
+      'description': '',
       'created': new Date(),
       'updated': new Date()
     }, {
       'id': 2,
-      'name': 'Jane Doe',
-      'email': 'jane.doe@test.com',
+      'name': '',
+      'description': '',
       'created': new Date(),
       'updated': new Date()
     }, {
       'id': 3,
-      'name': 'Foo Bar',
-      'email': 'foo.bar@test.com',
+      'name': '',
+      'description': '',
       'created': new Date(),
       'updated': new Date()
     }]
   }
 
-  async getUsers(idArr: number[]): Promise<User[]> {
-    return this.fakeUserData;
+  async getBooks(idArr: number[]): Promise<Book[]> {
+    return this.fakeBookData;
   }
 
-  async getUserById(userId: string): Promise<User> {
-    const selectedUser = this.fakeUserData.find((obj) => obj.id === parseInt(userId, 10));
+  async getBookById(bookId: string): Promise<Book> {
+    const selectedBook = this.fakeBookData.find((obj) => obj.id === parseInt(bookId, 10));
 
-    if(selectedUser) {
-      return selectedUser;
+    if(selectedBook) {
+      return selectedBook;
     } else {
-      throw new ApolloError('User not found.', 'NOT_FOUND');
+      throw new ApolloError('Book not found.', 'NOT_FOUND');
     }
   }
 }

@@ -3,8 +3,8 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildFederatedSchema } from '@apollo/federation';
 import promBundle from 'express-prom-bundle';
-import { UserAPI } from '../datasources/UserAPI';
-import { UserDB } from '../datasources/UserDB';
+import { BookAPI } from '../datasources/BookAPI';
+import { BookDB } from '../datasources/BookDB';
 import { typeDefs } from '../graphQL/schema';
 import { resolvers } from '../graphQL/resolvers';
 import { LoggingPlugin } from './LoggingPlugin';
@@ -36,8 +36,8 @@ export async function init(config: any): Promise<Express.Application> {
       },
       dataSources: () => {
         return {
-          userAPI: new UserAPI('https://someApi'),
-          userDB: new UserDB(),
+          bookAPI: new BookAPI('https://someApi'),
+          bookDB: new BookDB(),
         };
       },
       plugins: [LoggingPlugin],

@@ -1,7 +1,7 @@
 import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
 import DataLoader from 'dataloader';
 
-export class UserAPI extends RESTDataSource {
+export class BookAPI extends RESTDataSource {
   constructor(baseUrl: string) {
     super();
     this.baseURL = baseUrl;
@@ -18,39 +18,39 @@ export class UserAPI extends RESTDataSource {
    * It is important to note that the REST endpoint should be able to handle filtering by multiple ids at once.
    * This reduces the amount of calls needed to load bulk resources.
    */
-  private readonly userLoader = new DataLoader(async (idArr: any) => {
-    const response = await this.get(`users?id=${[...idArr].join(',')}`);
+  private readonly bookLoader = new DataLoader(async (idArr: any) => {
+    const response = await this.get(`books?id=${[...idArr].join(',')}`);
 
     return idArr.map((id: any) =>
       response.content.find((obj: any) => obj.id.toString() === id.toString()),
     );
   });
 
-  async loadUser(userId: string) {
-    return this.userLoader.load(userId);
+  async loadUser(bookId: string) {
+    return this.bookLoader.load(bookId);
   }
 
-  // USER RESOURCE
-  async getUsers(paginationInput: any) {
+  // BOOK RESOURCE
+  async getBooks(paginationInput: any) {
     // Can handle parsing paginationInput into a query string to be used here...
-    // const url = `/users${paginationInput}`;
+    // const url = `/books${paginationInput}`;
     // const response = await this.get(url);
     return { data: [{
         'id': 1,
-        'name': 'John Doe',
-        'email': 'john.doe@test.com',
+        'name': '',
+        'description': '',
         'created': new Date(),
         'updated': new Date()
       }, {
         'id': 2,
-        'name': 'Jane Doe',
-        'email': 'jane.doe@test.com',
+        'name': '',
+        'description': '',
         'created': new Date(),
         'updated': new Date()
       }, {
         'id': 3,
-        'name': 'Foo Bar',
-        'email': 'foo.bar@test.com',
+        'name': '',
+        'description': '',
         'created': new Date(),
         'updated': new Date()
       }], paginationData: {} };

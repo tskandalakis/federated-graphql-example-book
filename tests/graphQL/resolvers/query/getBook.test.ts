@@ -1,14 +1,14 @@
 import { resolvers } from '../../../../src/graphQL/resolvers';
 
-describe('Query getUser', () => {
+describe('Query getBook', () => {
   test('Calls proper dataSource', async () => {
     // @ts-ignore
-    const res = await resolvers.Query.getUser({}, {
-      userId: 1
+    const res = await resolvers.Query.getBook({}, {
+      bookId: 1
     }, {
       dataSources: {
-        userDB: {
-          getUserById: (userId: string) => {
+        bookDB: {
+          getBookById: (bookId: string) => {
             return true;
           }
         }
